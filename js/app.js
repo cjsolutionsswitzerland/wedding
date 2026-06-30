@@ -65,6 +65,7 @@ function currentPage() {
   const p = location.pathname.split("/").pop().replace(".html", "");
   if (p === "wishlist") return "wishlist";
   if (p === "register") return "rsvp";
+  if (p === "venues") return "venues";
   return "info";
 }
 
