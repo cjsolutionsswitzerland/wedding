@@ -38,13 +38,15 @@ const T = {
       hotel_none: "No hotel needed",
       submit: "Submit RSVP",
       update: "Update my RSVP",
+      search_placeholder: "Type your name...",
+      no_results: "No name found. Please contact us directly.",
       loading: "Loading guest list...",
       saving: "Saving...",
       success: "Thank you! Your registration has been saved. 🎉",
       updated: "Your registration has been updated. 🎉",
       error: "Something went wrong. Please try again.",
       already_registered: "You are already registered. You can update your details below.",
-      name_required: "Please select your name."
+      name_required: "Please type and select your name."
     }
   },
   it: {
@@ -86,13 +88,15 @@ const T = {
       hotel_none: "Non ho bisogno di un hotel",
       submit: "Invia Registrazione",
       update: "Aggiorna Registrazione",
+      search_placeholder: "Digita il tuo nome...",
+      no_results: "Nome non trovato. Contattaci direttamente.",
       loading: "Caricamento lista ospiti...",
       saving: "Salvataggio...",
       success: "Grazie! La tua registrazione è stata salvata. 🎉",
       updated: "La tua registrazione è stata aggiornata. 🎉",
       error: "Qualcosa è andato storto. Riprova.",
       already_registered: "Sei già registrato/a. Puoi aggiornare i tuoi dati qui sotto.",
-      name_required: "Seleziona il tuo nome."
+      name_required: "Digita e seleziona il tuo nome."
     }
   },
   es: {
@@ -135,13 +139,15 @@ const T = {
       hotel_none: "No necesito hotel",
       submit: "Enviar Registro",
       update: "Actualizar Registro",
+      search_placeholder: "Escribe tu nombre...",
+      no_results: "Nombre no encontrado. Contáctanos directamente.",
       loading: "Cargando lista de invitados...",
       saving: "Guardando...",
       success: "¡Gracias! Tu registro ha sido guardado. 🎉",
       updated: "Tu registro ha sido actualizado. 🎉",
       error: "Algo salió mal. Por favor, inténtalo de nuevo.",
       already_registered: "Ya estás registrado/a. Puedes actualizar tus datos a continuación.",
-      name_required: "Por favor, selecciona tu nombre."
+      name_required: "Escribe y selecciona tu nombre."
     }
   }
 };

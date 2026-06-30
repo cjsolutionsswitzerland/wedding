@@ -47,12 +47,16 @@
     <div id="form-wrap" class="form-card">
       <form id="rsvp-form" novalidate>
 
-        <!-- Name -->
+        <!-- Name search -->
         <div class="form-group">
-          <label for="name-select" data-i18n="register.select_label"></label>
-          <select id="name-select" name="name" required>
-            <option value="">…</option>
-          </select>
+          <label for="name-input" data-i18n="register.select_label"></label>
+          <div class="name-search-wrap">
+            <input type="text" id="name-input" class="name-search-input"
+              autocomplete="off" spellcheck="false"
+              data-i18n-placeholder="register.search_placeholder" />
+            <input type="hidden" id="name-value" name="name" />
+            <div id="name-dropdown" class="name-dropdown"></div>
+          </div>
         </div>
 
         <!-- Travel -->

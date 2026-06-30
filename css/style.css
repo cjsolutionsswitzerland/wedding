@@ -285,6 +285,52 @@ nav {
   letter-spacing: .04em;
 }
 
+/* Name search autocomplete */
+.name-search-wrap { position: relative; }
+
+.name-search-input {
+  width: 100%;
+  padding: .75rem 1rem;
+  border: 2px solid var(--sand);
+  border-radius: 8px;
+  font-family: 'Lato', sans-serif;
+  font-size: 1rem;
+  color: var(--text);
+  background: var(--cream);
+  transition: border-color .2s;
+  outline: none;
+}
+.name-search-input:focus { border-color: var(--blue-light); }
+.name-search-input.has-selection { border-color: var(--olive); background: #F0F9F0; }
+
+.name-dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0; right: 0;
+  background: var(--white);
+  border: 2px solid var(--blue-light);
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+  max-height: 220px;
+  overflow-y: auto;
+  z-index: 20;
+  box-shadow: 0 8px 20px rgba(0,0,0,.12);
+}
+.name-dropdown.open { display: block; }
+
+.name-option {
+  padding: .65rem 1rem;
+  cursor: pointer;
+  font-size: .95rem;
+  border-bottom: 1px solid var(--sand);
+  transition: background .15s;
+}
+.name-option:last-child { border-bottom: none; }
+.name-option:hover { background: var(--sand); }
+.name-option.no-result { color: #999; cursor: default; font-style: italic; }
+.name-option.no-result:hover { background: none; }
+
 select, textarea {
   width: 100%;
   padding: .75rem 1rem;
