@@ -1,16 +1,12 @@
 // ── GOOGLE APPS SCRIPT BACKEND ────────────────────────────────────────────────
 // Paste this entire file into: Google Sheet → Extensions → Apps Script
-// Then deploy: Deploy → New Deployment → Web App
-//   Execute as: Me  |  Who has access: Anyone
-// Copy the deployment URL and paste it into js/app.js → CONFIG.scriptUrl
+// Then: Deploy → Bereitstellungen verwalten → Bearbeiten → neue Version → Aktualisieren
 //
-// Sheet structure expected:
-//   Tab 1 (any name, e.g. "Tabelle1"): guest names in column A, starting row 2
-//   Tab "Registrations": created automatically on first RSVP submission
-//     Columns: Name | Transport | Meal | Allergies | Hotel | Registered | Timestamp
+// Alles wird direkt in Tab 1 (Tabelle1) geschrieben.
+// Erwartete Spalten in Zeile 1:
+//   Name | Transport | Meal | Allergies | Hotel | Registered | Timestamp
 
 const SPREADSHEET_ID = "1E0QZnlPrUVmtoP2zUS-cFAwxBx_9vCc5CRphEO7y_eQ";
-const SHEET_RSVP     = "Registrations";
 
 function doGet(e) {
   const action = (e.parameter.action || "").toLowerCase();
@@ -24,94 +20,88 @@ function doGet(e) {
   return respond(result);
 }
 
-// Returns { names: ["Name1", "Name2", ...] } from the FIRST sheet, column A
+// Returns { names: [...] } — column A, row 2 onwards
 function getNames() {
-  const ss    = SpreadsheetApp.openById(SPREADSHEET_ID);
-  const sheet = ss.getSheets()[0]; // always use the first tab regardless of name
+  const sheet = getMainSheet();
   const last  = sheet.getLastRow();
   if (last < 2) return { names: [] };
   const values = sheet.getRange(2, 1, last - 1, 1).getValues();
-  const names  = values.map(r => String(r[0]).trim()).filter(Boolean);
-  return { names };
+  return { names: values.map(r => String(r[0]).trim()).filter(Boolean) };
 }
 
-// Returns { found: true/false, travel, food, allergies, hotel }
+// Returns existing registration data for a guest
 function getRegistration(name) {
   if (!name) return { found: false };
-  const sheet = getRsvpSheet();
-  const last  = sheet.getLastRow();
+  const sheet   = getMainSheet();
+  const cols    = getColumnMap(sheet);
+  const last    = sheet.getLastRow();
   if (last < 2) return { found: false };
-  const data = sheet.getRange(2, 1, last - 1, 7).getValues();
+
+  const data = sheet.getRange(2, 1, last - 1, sheet.getLastColumn()).getValues();
   const norm = name.trim().toLowerCase();
+
   for (const row of data) {
     if (String(row[0]).trim().toLowerCase() === norm) {
-      return { found: true, travel: row[1], food: row[2], allergies: row[3], hotel: row[4] };
+      return {
+        found:     true,
+        travel:    row[cols.transport] ?? "",
+        food:      row[cols.meal]      ?? "",
+        allergies: row[cols.allergies] ?? "",
+        hotel:     row[cols.hotel]     ?? ""
+      };
     }
   }
   return { found: false };
 }
 
-// Inserts or updates the row for this guest; also writes back to the first sheet
+// Writes all registration fields directly into Tabelle1
 function saveRegistration(p) {
   const name = String(p.name || "").trim();
   if (!name) return { success: false, error: "Name missing" };
 
-  const sheet = getRsvpSheet();
+  const sheet = getMainSheet();
+  const cols  = getColumnMap(sheet);
   const last  = sheet.getLastRow();
-  const row   = [name, p.travel || "", p.food || "", p.allergies || "", p.hotel || "", "Yes", new Date()];
+  if (last < 2) return { success: false, error: "No guests found" };
 
-  if (last >= 2) {
-    const data = sheet.getRange(2, 1, last - 1, 1).getValues();
-    const norm = name.toLowerCase();
-    for (let i = 0; i < data.length; i++) {
-      if (String(data[i][0]).trim().toLowerCase() === norm) {
-        sheet.getRange(i + 2, 1, 1, row.length).setValues([row]);
-        syncToGuestSheet(name, true);
-        return { success: true, updated: true };
-      }
-    }
-  }
-
-  sheet.appendRow(row);
-  syncToGuestSheet(name, true);
-  return { success: true, updated: false };
-}
-
-// Marks the guest as "Registered: Yes" in the original guest list sheet
-function syncToGuestSheet(name, registered) {
-  const ss    = SpreadsheetApp.openById(SPREADSHEET_ID);
-  const sheet = ss.getSheets()[0];
-  const last  = sheet.getLastRow();
-  if (last < 2) return;
-  const data = sheet.getRange(2, 1, last - 1, sheet.getLastColumn()).getValues();
+  const data = sheet.getRange(2, 1, last - 1, 1).getValues();
   const norm = name.toLowerCase();
-
-  // Find which column is "Registered" (column F = index 5 if following the Excel structure)
-  // Header row detection: look for "Registered" in row 1
-  const headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
-  let regCol = headers.findIndex(h => String(h).toLowerCase() === "registered");
-  if (regCol === -1) regCol = 5; // fallback: column F (0-indexed = 5 → 1-indexed = 6)
 
   for (let i = 0; i < data.length; i++) {
     if (String(data[i][0]).trim().toLowerCase() === norm) {
-      sheet.getRange(i + 2, regCol + 1).setValue(registered ? "Yes" : "No");
-      sheet.getRange(i + 2, regCol + 2).setValue(new Date()); // Timestamp next column
-      return;
+      const rowNum = i + 2; // +1 for header, +1 for 1-based index
+      sheet.getRange(rowNum, cols.transport + 1).setValue(p.travel    || "");
+      sheet.getRange(rowNum, cols.meal      + 1).setValue(p.food      || "");
+      sheet.getRange(rowNum, cols.allergies + 1).setValue(p.allergies || "");
+      sheet.getRange(rowNum, cols.hotel     + 1).setValue(p.hotel     || "");
+      sheet.getRange(rowNum, cols.registered + 1).setValue("Yes");
+      sheet.getRange(rowNum, cols.timestamp + 1).setValue(new Date());
+      return { success: true };
     }
   }
+
+  return { success: false, error: "Name not found in guest list" };
 }
 
 // ── HELPERS ──────────────────────────────────────────────────────────────────
 
-function getRsvpSheet() {
-  const ss    = SpreadsheetApp.openById(SPREADSHEET_ID);
-  let   sheet = ss.getSheetByName(SHEET_RSVP);
-  if (!sheet) {
-    sheet = ss.insertSheet(SHEET_RSVP);
-    sheet.appendRow(["Name", "Transport", "Meal", "Allergies", "Hotel", "Registered", "Timestamp"]);
-    sheet.getRange(1, 1, 1, 7).setFontWeight("bold");
-  }
-  return sheet;
+function getMainSheet() {
+  return SpreadsheetApp.openById(SPREADSHEET_ID).getSheets()[0];
+}
+
+// Reads header row and returns 0-based column indices for each field
+function getColumnMap(sheet) {
+  const headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0]
+    .map(h => String(h).toLowerCase().trim());
+
+  return {
+    transport:  headers.indexOf("transport"),
+    meal:       headers.indexOf("meal"),
+    allergies:  headers.indexOf("allergies"),
+    hotel:      headers.indexOf("hotel"),
+    registered: headers.indexOf("registered"),
+    timestamp:  headers.indexOf("timestamp")
+  };
 }
 
 function respond(data) {
