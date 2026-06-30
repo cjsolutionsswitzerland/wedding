@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wishlist</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <span class="nav-brand couple-name"></span>
+    <button id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <div id="nav-menu">
+      <a class="nav-link" href="index.html"    data-page="info"     data-i18n="nav.info"></a>
+      <a class="nav-link" href="wishlist.html" data-page="wishlist" data-i18n="nav.wishlist"></a>
+      <a class="nav-link" href="register.html" data-page="rsvp"     data-i18n="nav.rsvp"></a>
+    </div>
+    <div class="nav-right">
+      <button class="lang-btn" data-lang="it">IT</button>
+      <button class="lang-btn" data-lang="es">ES</button>
+      <button class="lang-btn" data-lang="en">EN</button>
+    </div>
+  </div>
+</nav>
+
+<section class="hero" style="padding: 3rem 1.5rem 2.5rem;">
+  <div class="hero-content">
+    <div class="hero-names couple-name"></div>
+  </div>
+</section>
+
+<main class="container">
+  <h2 class="section-title" data-i18n="wishlist.title"></h2>
+  <p class="wishlist-intro" data-i18n="wishlist.intro"></p>
+
+  <div class="gift-grid">
+    <!-- Add or remove gift cards as needed -->
+    <div class="gift-card">
+      <div class="gift-icon">🍋</div>
+      <h4>Limoncello Experience</h4>
+      <p>A tasting tour in Sorrento</p>
+    </div>
+    <div class="gift-card">
+      <div class="gift-icon">✈️</div>
+      <h4>Honeymoon Fund</h4>
+      <p>Contribution to our travels</p>
+    </div>
+    <div class="gift-card">
+      <div class="gift-icon">📸</div>
+      <h4>Photo Album</h4>
+      <p>Premium printed wedding album</p>
+    </div>
+    <div class="gift-card">
+      <div class="gift-icon">🫒</div>
+      <h4>Olive Oil Set</h4>
+      <p>Artisan Italian olive oils</p>
+    </div>
+    <div class="gift-card">
+      <div class="gift-icon">🍷</div>
+      <h4>Wine Collection</h4>
+      <p>Fine Italian or Spanish wines</p>
+    </div>
+    <div class="gift-card">
+      <div class="gift-icon">🎁</div>
+      <h4>Surprise Us!</h4>
+      <p>Something from the heart</p>
+    </div>
+  </div>
+
+  <p class="wishlist-note" data-i18n="wishlist.note"></p>
+</main>
+
+<footer>
+  <p>Made with ❤️ for <span class="couple-name"></span></p>
+</footer>
+
+<script src="js/translations.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
