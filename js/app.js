@@ -1,8 +1,8 @@
 // ── CONFIGURATION ────────────────────────────────────────────────────────────
 const CONFIG = {
   coupleName:  "Chiara & Yago",
-  weddingDate: "1. Januar 2027",
-  location:    "Mailand, Italien",
+  weddingDate: new Date("2027-07-03"),
+  location:    { en: "Rome, Italy", it: "Roma, Italia", es: "Roma, Italia" },
   scriptUrl:   "https://script.google.com/macros/s/AKfycbxff_QHNTWrIu85xRVIDMquW0u_wmS9jgplOagBAl94ZxAf2TrajUMZKO2mOfLWalOO/exec",
   deadline:    new Date("2026-08-30T23:59:59")
 };
@@ -44,6 +44,15 @@ function applyTranslations() {
     el.placeholder = t(el.getAttribute("data-i18n-placeholder"));
   });
   document.title = CONFIG.coupleName + " — " + t("nav." + currentPage());
+  updateDateAndLocation();
+}
+
+function updateDateAndLocation() {
+  const locale = currentLang === "it" ? "it-IT" : currentLang === "es" ? "es-ES" : "en-GB";
+  const dateStr = CONFIG.weddingDate.toLocaleDateString(locale, { day: "numeric", month: "long", year: "numeric" });
+  document.querySelectorAll(".wedding-date").forEach(el => el.textContent = dateStr);
+  const loc = typeof CONFIG.location === "object" ? (CONFIG.location[currentLang] || CONFIG.location.en) : CONFIG.location;
+  document.querySelectorAll(".wedding-location").forEach(el => el.textContent = loc);
 }
 
 function updateLangButtons() {
@@ -68,8 +77,7 @@ function isDeadlinePassed() {
 document.addEventListener("DOMContentLoaded", () => {
   // Insert couple name wherever needed
   document.querySelectorAll(".couple-name").forEach(el => el.textContent = CONFIG.coupleName);
-  document.querySelectorAll(".wedding-date").forEach(el => el.textContent = CONFIG.weddingDate);
-  document.querySelectorAll(".wedding-location").forEach(el => el.textContent = CONFIG.location);
+  updateDateAndLocation();
 
   // Lang buttons
   document.querySelectorAll(".lang-btn").forEach(btn => {
