@@ -3,7 +3,7 @@ const CONFIG = {
   coupleName:  "Chiara & Yago",
   weddingDate: "1. Januar 2027",
   location:    "Mailand, Italien",
-  scriptUrl:   "https://script.google.com/macros/s/AKfycbzK1ni6vbrxYQXMxixe4CpzwZHHT6eOhX4QZIdC4_D8qHU8gLlPu5GHsBtHrt4syyWe/exec",
+  scriptUrl:   "https://script.google.com/macros/s/AKfycbw7kWnvEgfNCOIpFdEkoMp65eYWlTESqDDjLPNtSrloHhZy1_e5YrE2iEfxetLgPSkQ/exec",
   deadline:    new Date("2026-08-30T23:59:59")
 };
 
