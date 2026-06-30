@@ -1,6 +1,6 @@
 const T = {
   en: {
-    nav: { info: "Information", wishlist: "Wishlist", rsvp: "RSVP" },
+    nav: { info: "Information", venues: "Venues", wishlist: "Wishlist", rsvp: "RSVP" },
     hero: { tagline: "We're getting married!" },
     info: {
       title: "Wedding Information",
@@ -19,6 +19,13 @@ const T = {
       title: "Gift Wishlist",
       intro: "Your presence is the greatest gift to us. But if you'd like to give something, here are a few ideas:",
       note: "Gifts can also be handed to us on the day. Thank you so much!"
+    },
+    venues: {
+      title: "Our Venues",
+      tab_ceremony: "Ceremony",
+      tab_party: "Reception",
+      ceremony_desc: "Our ceremony will take place at the Pontificio Ateneo Sant'Anselmo, a stunning Benedictine church on the Aventine Hill — one of Rome's most peaceful and historic neighbourhoods.",
+      party_desc: "The reception will be held at Villa Demetra, an elegant estate south of Rome surrounded by lush gardens, with breathtaking outdoor dining under the stars."
     },
     register: {
       title: "RSVP",
@@ -52,7 +59,7 @@ const T = {
     }
   },
   it: {
-    nav: { info: "Informazioni", wishlist: "Lista Desideri", rsvp: "Registrazione" },
+    nav: { info: "Informazioni", venues: "Luoghi", wishlist: "Lista Desideri", rsvp: "Registrazione" },
     hero: { tagline: "Ci sposiamo!" },
     info: {
       title: "Informazioni sul Matrimonio",
@@ -71,6 +78,13 @@ const T = {
       title: "Lista Desideri",
       intro: "La vostra presenza è il regalo più bello. Se desiderate farci un dono, ecco qualche idea:",
       note: "I regali possono essere consegnati anche il giorno del matrimonio. Grazie di cuore!"
+    },
+    venues: {
+      title: "Le Nostre Location",
+      tab_ceremony: "Cerimonia",
+      tab_party: "Ricevimento",
+      ceremony_desc: "La cerimonia si terrà presso il Pontificio Ateneo Sant'Anselmo, una splendida chiesa benedettina sul colle Aventino — uno dei quartieri più suggestivi e storici di Roma.",
+      party_desc: "Il ricevimento si terrà a Villa Demetra, un'elegante residenza a sud di Roma immersa in lussureggianti giardini, con una cena all'aperto sotto le stelle."
     },
     register: {
       title: "Registrazione",
@@ -104,7 +118,7 @@ const T = {
     }
   },
   es: {
-    nav: { info: "Información", wishlist: "Lista de Deseos", rsvp: "Registro" },
+    nav: { info: "Información", venues: "Lugares", wishlist: "Lista de Deseos", rsvp: "Registro" },
     hero: { tagline: "¡Nos casamos!" },
     info: {
       title: "Información de la Boda",
@@ -123,6 +137,13 @@ const T = {
       title: "Lista de Deseos",
       intro: "Vuestra presencia es el mejor regalo. Si deseáis hacernos un obsequio, aquí tenéis algunas ideas:",
       note: "Los regalos también pueden entregarse el día de la boda. ¡Muchas gracias!"
+    },
+    venues: {
+      title: "Nuestros Lugares",
+      tab_ceremony: "Ceremonia",
+      tab_party: "Recepción",
+      ceremony_desc: "La ceremonia tendrá lugar en el Pontificio Ateneo Sant'Anselmo, una impresionante iglesia benedictina en el monte Aventino — uno de los barrios más tranquilos e históricos de Roma.",
+      party_desc: "La recepción se celebrará en Villa Demetra, una elegante finca al sur de Roma rodeada de exuberantes jardines, con una cena al aire libre bajo las estrellas."
     },
     register: {
       title: "Registro",
