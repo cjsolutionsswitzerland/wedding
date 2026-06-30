@@ -1,9 +1,9 @@
 // ── CONFIGURATION ────────────────────────────────────────────────────────────
 const CONFIG = {
-  coupleName:  "Marco & Isabella",          // UPDATE
-  weddingDate: "TBD — 2027",               // UPDATE
-  location:    "TBD",                       // UPDATE
-  scriptUrl:   "YOUR_APPS_SCRIPT_URL_HERE", // UPDATE after deploying Apps Script
+  coupleName:  "Chiara & Yago",
+  weddingDate: "1. Januar 2027",
+  location:    "Mailand, Italien",
+  scriptUrl:   "https://script.google.com/macros/s/AKfycbzK1ni6vbrxYQXMxixe4CpzwZHHT6eOhX4QZIdC4_D8qHU8gLlPu5GHsBtHrt4syyWe/exec",
   deadline:    new Date("2026-08-30T23:59:59")
 };
 
